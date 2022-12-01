@@ -1,0 +1,37 @@
+{
+  "manifest_version": 3,
+  "content_security_policy": {
+    "extension_pages": "default-src 'none'; script-src 'self'; connect-src 'self' https://www.gov.uk"
+  },
+  "name": "DTX Plus",
+  "description": "DTX Plus",
+  "version": "1.0",
+  "options_ui": {
+    "page": "options.html"
+  },
+  "action": {
+    "default_icon": {
+      "16": "icon.png"
+    },
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "http://*/*",
+        "https://*/*",
+        "<all_urls>"
+      ],
+      "js": [
+        "js/vendor.js",
+        "js/all_content_script.js"
+      ]
+    }
+  ],
+  "permissions": [
+    "storage"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ]
+}
