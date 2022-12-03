@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 
-const Options = () => {
+function Options() {
   const [color, setColor] = useState<string>("");
   const [status, setStatus] = useState<string>("");
   const [like, setLike] = useState<boolean>(false);
@@ -11,13 +11,13 @@ const Options = () => {
     // stored in chrome.storage.
     chrome.storage.sync.get(
       {
-        favoriteColor: "red",
+        favouriteColor: "red",
         likesColor: true,
       },
       (items) => {
-        setColor(items.favoriteColor);
+        setColor(items.favouriteColor);
         setLike(items.likesColor);
-      }
+      },
     );
   }, []);
 
@@ -25,7 +25,7 @@ const Options = () => {
     // Saves options to chrome.storage.sync.
     chrome.storage.sync.set(
       {
-        favoriteColor: color,
+        favouriteColor: color,
         likesColor: like,
       },
       () => {
@@ -35,17 +35,15 @@ const Options = () => {
           setStatus("");
         }, 1000);
         return () => clearTimeout(id);
-      }
+      },
     );
   };
 
   return (
     <>
       <div>
-        Favorite color: <select
-          value={color}
-          onChange={(event) => setColor(event.target.value)}
-        >
+        Favourite color:{" "}
+        <select value={color} onChange={(event) => setColor(event.target.value)}>
           <option value="red">red</option>
           <option value="green">green</option>
           <option value="blue">blue</option>
@@ -53,24 +51,27 @@ const Options = () => {
         </select>
       </div>
       <div>
-        <label>
+        <label htmlFor="id">
           <input
             type="checkbox"
+            id="like"
             checked={like}
             onChange={(event) => setLike(event.target.checked)}
           />
-          I like colors.
+          I like colours
         </label>
       </div>
       <div>{status}</div>
-      <button onClick={saveOptions}>Save</button>
+      <button type="button" onClick={saveOptions}>
+        Save
+      </button>
     </>
   );
-};
+}
 
 ReactDOM.render(
   <React.StrictMode>
     <Options />
   </React.StrictMode>,
-  document.getElementById("root")
+  document.getElementById("root"),
 );
