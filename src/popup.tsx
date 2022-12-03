@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 
-const Popup = () => {
+function Popup() {
   const [count, setCount] = useState(0);
   const [currentURL, setCurrentURL] = useState<string>();
 
@@ -10,13 +10,13 @@ const Popup = () => {
   }, [count]);
 
   useEffect(() => {
-    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
       setCurrentURL(tabs[0].url);
     });
   }, []);
 
   const changeBackground = () => {
-    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
       const tab = tabs[0];
       if (tab.id) {
         chrome.tabs.sendMessage(
@@ -47,7 +47,7 @@ const Popup = () => {
       <button onClick={changeBackground}>change background</button>
     </>
   );
-};
+}
 
 ReactDOM.render(
   <React.StrictMode>

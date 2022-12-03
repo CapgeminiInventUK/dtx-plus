@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 
-const Options = () => {
+function Options() {
   const [color, setColor] = useState<string>("");
   const [status, setStatus] = useState<string>("");
   const [like, setLike] = useState<boolean>(false);
@@ -66,7 +66,7 @@ const Options = () => {
       <button onClick={saveOptions}>Save</button>
     </>
   );
-};
+}
 
 ReactDOM.render(
   <React.StrictMode>

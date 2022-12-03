@@ -1,6 +1,7 @@
 {
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
+        "project": ["./tsconfig.json"],
         "ecmaVersion": 12,
         "sourceType": "module"
     },
@@ -8,16 +9,26 @@
         "@typescript-eslint"
     ],
     "extends": [
-        "eslint:recommended",
-        "plugin:@typescript-eslint/recommended",
+        "airbnb",
+        "airbnb-typescript",
         "plugin:@typescript-eslint/recommended",
         "prettier"
     ],
     "rules": {
+        "no-param-reassign": "off",
         "@typescript-eslint/no-unused-vars": "error",
         "@typescript-eslint/consistent-type-definitions": [
             "error",
             "type"
+        ],
+        "space-before-blocks":"error",
+        "max-len": [
+            "error",
+            {
+                "code": 100,
+                "ignoreComments": true,
+                "tabWidth": 2
+            }
         ]
     },
     "env": {

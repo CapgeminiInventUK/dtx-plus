@@ -17,21 +17,70 @@
   },
   "content_scripts": [
     {
-      "matches": [
-        "http://*/*",
-        "https://*/*",
-        "<all_urls>"
-      ],
+      "matches":[
+				"*://*.capgemini.com/DTX.NET/*"
+			],
+			"run_at": "document_start",
+      "css":[
+				"css/dtx-fixes.css",
+				"css/dtx-additions.css"
+			],
       "js": [
-        "js/vendor.js",
-        "js/all_content_script.js"
+        "js/vendor.js"
       ]
-    }
+    },
+    {
+      "matches":[
+				"*://*.capgemini.com/DTX.NET/*"
+			],
+			"run_at": "document_end",
+      "js": [
+        "js/dtx.js"
+      ]
+    },
+		{
+			"matches":[
+				"*://*.capgemini.com/DTX.NET/Summary.aspx"
+			],
+			"run_at": "document_idle",
+			"js":[
+				"js/dtx-summary.js"
+			]
+		},
+    {
+			"matches":[
+				"*://*.capgemini.com/DTX.NET/Login.aspx*"
+			],
+			"run_at": "document_idle",
+			"css":[
+				"css/login-message.css"
+			],
+			"js":[
+				"js/dtx-login.js"
+			]
+		},		
+    {
+			"matches":[
+				"*://*.capgemini.com/DTX.NET/item.aspx*"
+			],
+			"run_at": "document_idle",
+			"css":[
+				"pattern-fill/pattern-fill.css"
+			],
+			"js":[
+				"js/dtx-item.js",
+				"pattern-fill/pattern-fill.js"
+			]
+		}
   ],
   "permissions": [
     "storage"
   ],
   "host_permissions": [
-    "<all_urls>"
-  ]
+    "*://*.capgemini.com/DTX.NET/*"
+  ],
+  "web_accessible_resources": [{
+      "resources": ["/images/*",		"/pattern-fill/*", "/js/inline/*"],
+      "matches": ["<all_urls>"]
+    }]
 }

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<div class="patternfill-container">
+	<button type="button" onclick="togglePatternFillMenu()" class="patternfill-menu-button">Pattern-fill</button>
+	<div class="patternfill-menu">
+		<div class="patternfill-menu-content">
+			<span class="patternFillDesc">
+				Fill all days in groups after a chosen work day
+			</span>
+			<label class="patternFillNumLabel" for="patternFillStartDay">Start day:</label>
+			<input id="patternFillStartDay" type="number" placeholder="1"/>
+			<br/>
+
+			<label class="patternFillNumLabel" for="patternFillDaysOn">Days on:</label>
+			<input id="patternFillDaysOn" type="number" placeholder="4"/>
+			<br/>
+
+			<label class="patternFillNumLabel" for="patternFillDaysOff">Days off:</label>
+			<input id="patternFillDaysOff" type="number" placeholder="4"/>
+			<br/>
+
+			<label class="patternFillNumLabel" for="patternFillDaysOff">Hours:</label>
+			<input title="Change in Polyfiller Plus settings" disabled id="patternFillSelectHours" type="number" placeholder="7.5"/>
+			<br/>
+			
+			<label for="patternFillIncludeBankHolidays">
+				<input id="patternFillIncludeBankHolidays" type="checkbox" checked/>
+				Include bank holidays
+			</label>
+
+			<button type="button" onclick="runPatternFill()" id="patternFillButton">Run pattern-fill</button>
+		</div>
+	</div>
+</div>

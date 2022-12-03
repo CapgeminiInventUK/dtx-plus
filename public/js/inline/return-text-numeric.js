@@ -1,0 +1,1 @@
+returnTextNumeric = function() { return true }
