@@ -26,7 +26,7 @@ function Popup() {
           },
           (msg) => {
             console.log("result message:", msg);
-          }
+          },
         );
       }
     });
@@ -38,13 +38,12 @@ function Popup() {
         <li>Current URL: {currentURL}</li>
         <li>Current Time: {new Date().toLocaleTimeString()}</li>
       </ul>
-      <button
-        onClick={() => setCount(count + 1)}
-        style={{ marginRight: "5px" }}
-      >
+      <button type="button" onClick={() => setCount(count + 1)} style={{ marginRight: "5px" }}>
         count up
       </button>
-      <button onClick={changeBackground}>change background</button>
+      <button type="button" onClick={changeBackground}>
+        change background
+      </button>
     </>
   );
 }
@@ -53,5 +52,5 @@ ReactDOM.render(
   <React.StrictMode>
     <Popup />
   </React.StrictMode>,
-  document.getElementById("root")
+  document.getElementById("root"),
 );

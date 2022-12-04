@@ -1,1 +1,3 @@
-returnTextNumeric = function() { return true }
+returnTextNumeric = function () {
+  return true;
+};

@@ -1,3 +1,3 @@
-document.addEventListener('callCalculateTotalsFunc', () => {
-    if (typeof CalculateTotals == "function") CalculateTotals("cell");
+document.addEventListener("callCalculateTotalsFunc", () => {
+  if (typeof CalculateTotals == "function") CalculateTotals("cell");
 });
