@@ -29,10 +29,14 @@ export function encryptString(specialToken: string, toEncrypt: string) {
   return data.toString();
 }
 
+export function saveSettings(settings: Record<string, any>, callback?: () => void) {
+  chrome.storage.sync.set(settings, () => {
+    if (callback) callback();
+  });
+}
+
 // Load settings from storage (with defaults) and run a given function
-export default function LoadExtensionSettings(
-  callback: (userSettings: Record<string, any>) => void,
-) {
+export function getSettings(callback: (userSettings: Record<string, any>) => void) {
   chrome.storage.sync.get(
     {
       lastVersionUsed: null,

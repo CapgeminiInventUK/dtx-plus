@@ -3,7 +3,7 @@ import pageContainsMenuBar from "./modules/find";
 import fixMissingButtons from "./modules/fixes";
 import injectStandardUKTimeButton from "./modules/menu";
 import printLine from "./modules/print";
-import LoadExtensionSettings from "./modules/settings";
+import { getSettings } from "./modules/settings";
 
 function LoadPolyfiller(userSettings: Record<string, any>) {
   fixMissingButtons();
@@ -33,4 +33,4 @@ function LoadPolyfiller(userSettings: Record<string, any>) {
   }
 }
 
-LoadExtensionSettings((userSettings: Record<string, any>) => LoadPolyfiller(userSettings));
+getSettings((userSettings: Record<string, any>) => LoadPolyfiller(userSettings));

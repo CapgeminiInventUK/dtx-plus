@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
-import LoadExtensionSettings, {
+import {
   assignSpecialToken,
   decryptString,
   encryptString,
+  saveSettings,
+  getSettings,
 } from "./content-scripts/modules/settings";
+import CheckboxOption from "./components/checkbox-option";
+import InputOption from "./components/input-option";
+import DropdownOption from "./components/dropdown-option";
 
 function Settings() {
-  // const [specialToken, setSpecialToken] = useState<string>("");
-
   const [shortcutKeys, setShortcutKeys] = useState<boolean>(false);
   const [fixSummaryTable, setFixSummaryTable] = useState<boolean>(false);
   const [selectMode, setSelectMode] = useState<boolean>(false);
@@ -29,7 +32,7 @@ function Settings() {
   useEffect(() => {
     // Restores select box and checkbox state using the preferences
     // stored in chrome.storage.
-    LoadExtensionSettings((settings) => {
+    getSettings((settings) => {
       if (!settings.specialToken)
         assignSpecialToken((token) => {
           settings.specialToken = token;
@@ -37,6 +40,7 @@ function Settings() {
 
       setShortcutKeys(settings.shortcutKeys);
       setFixSummaryTable(settings.fixSummaryTable);
+
       setSelectMode(settings.selectMode);
       setSelectHours(settings.selectHours);
 
@@ -44,7 +48,6 @@ function Settings() {
       setHolidayRegion(settings.holidayRegion);
 
       setAutoLogin(settings.autoLogin);
-
       setEmployeeNumber(decryptString(settings.specialToken, settings.employeeNumber));
 
       setAutoFillFields(settings.autoFillFields);
@@ -60,8 +63,7 @@ function Settings() {
         specialToken: "",
       },
       (settings) => {
-        // TODO Move this to settings.ts
-        chrome.storage.sync.set(
+        saveSettings(
           {
             shortcutKeys,
             fixSummaryTable,
@@ -92,143 +94,91 @@ function Settings() {
     <>
       <h1 style={{ marginTop: "0px", marginBottom: "8px" }}>Settings</h1>
       <div>
-        <div>
-          <div>
-            <label htmlFor="shortcutKeys">
-              Shortcut Keys
-              <input
-                id="shortcutKeys"
-                type="checkbox"
-                checked={shortcutKeys}
-                onChange={(e) => setShortcutKeys(e.target.checked)}
-              />
-            </label>
-          </div>
-        </div>
-        <div>
-          <label htmlFor="fixSummaryTable">
-            Fix Summary Table
-            <input
-              id="fixSummaryTable"
-              type="checkbox"
-              checked={fixSummaryTable}
-              onChange={(e) => setFixSummaryTable(e.target.checked)}
-            />
-          </label>
-        </div>
-        <div>
-          <label htmlFor="selectMode">
-            Select Mode
-            <input
-              id="selectMode"
-              type="checkbox"
-              checked={selectMode}
-              onChange={(e) => setSelectMode(e.target.checked)}
-            />
-          </label>
-        </div>
+        <CheckboxOption
+          inputId="shortcutKeys"
+          checked={shortcutKeys}
+          onChange={setShortcutKeys}
+          label="Enable shortcut keys"
+        />
+        <CheckboxOption
+          inputId="fixSummaryTable"
+          checked={fixSummaryTable}
+          onChange={setFixSummaryTable}
+          label="Fix summary table"
+        />
+        <CheckboxOption
+          inputId="selectMode"
+          checked={selectMode}
+          onChange={setSelectMode}
+          label="Select mode"
+        />
         {selectMode && (
-          <div>
-            <label htmlFor="selectHours">
-              Select Hours
-              <input
-                id="selectHours"
-                type="number"
-                value={selectHours}
-                onChange={(e) => setSelectHours(e.target.value)}
-              />
-            </label>
-          </div>
+          <InputOption
+            inputId="selectHours"
+            value={selectHours}
+            onChange={setSelectHours}
+            label="Select hours"
+            inputType="number"
+          />
         )}
-        <div>
-          <label htmlFor="showBankHolidays">
-            Show Bank Holidays
-            <input
-              id="showBankHolidays"
-              type="checkbox"
-              checked={showBankHolidays}
-              onChange={(e) => setShowBankHolidays(e.target.checked)}
-            />
-          </label>
-        </div>
+        <CheckboxOption
+          inputId="showBankHolidays"
+          checked={showBankHolidays}
+          onChange={setShowBankHolidays}
+          label="Show bank holidays"
+        />
         {showBankHolidays && (
-          <div>
-            <label htmlFor="holidayRegion">
-              Holiday Region
-              <select
-                id="holidayRegion"
-                value={holidayRegion}
-                onChange={(e) => setHolidayRegion(e.target.value)}
-              >
-                <option value="england-and-wales">England and Wales</option>
-                <option value="scotland">Scotland</option>
-                <option value="northern-ireland">Northern Ireland</option>
-              </select>
-            </label>
-          </div>
+          <DropdownOption
+            inputId="holidayRegion"
+            value={holidayRegion}
+            onChange={setHolidayRegion}
+            label="Holiday region"
+            options={[
+              { value: "england-and-wales", label: "England and Wales" },
+              { value: "scotland", label: "Scotland" },
+              { value: "northern-ireland", label: "Northern Ireland" },
+            ]}
+          />
         )}
-        <div>
-          <label htmlFor="autoLogin">
-            Auto Login
-            <input
-              id="autoLogin"
-              type="checkbox"
-              checked={autoLogin}
-              onChange={(e) => setAutoLogin(e.target.checked)}
-            />
-          </label>
-        </div>
+        <CheckboxOption
+          inputId="autoLogin"
+          checked={autoLogin}
+          onChange={setAutoLogin}
+          label="Auto login"
+        />
         {autoLogin && (
-          <div>
-            <label htmlFor="employeeNumber">
-              Employee Number
-              <input
-                id="employeeNumber"
-                type="text"
-                value={employeeNumber}
-                onChange={(e) => setEmployeeNumber(e.target.value)}
-              />
-            </label>
-          </div>
+          <InputOption
+            inputId="employeeNumber"
+            value={employeeNumber}
+            onChange={setEmployeeNumber}
+            label="Employee Number"
+            inputType="text"
+          />
         )}
-        <div>
-          <label htmlFor="autoFillFields">
-            Auto Fill Fields
-            <input
-              id="autoFillFields"
-              type="checkbox"
-              checked={autoFillFields}
-              onChange={(e) => setAutoFillFields(e.target.checked)}
-            />
-          </label>
-        </div>
+        <CheckboxOption
+          inputId="autoFillFields"
+          checked={autoFillFields}
+          onChange={setAutoFillFields}
+          label="Auto fill fields"
+        />
         {autoFillFields && (
-          <div>
-            <label htmlFor="autoFillTaskNumber">
-              Auto Fill Task Number
-              <input
-                id="autoFillTaskNumber"
-                type="text"
-                value={autoFillTaskNumber}
-                onChange={(e) => setAutoFillTaskNumber(e.target.value)}
-              />
-            </label>
-          </div>
+          <InputOption
+            inputId="autoFillTaskNumber"
+            value={autoFillTaskNumber}
+            onChange={setAutoFillTaskNumber}
+            label="Task Number"
+            inputType="text"
+          />
         )}
         {autoFillFields && (
-          <div>
-            <label htmlFor="autoFillProjectCode">
-              Auto Fill Project Code
-              <input
-                id="autoFillProjectCode"
-                type="text"
-                value={autoFillProjectCode}
-                onChange={(e) => setAutoFillProjectCode(e.target.value)}
-              />
-            </label>
-          </div>
+          <InputOption
+            inputId="autoFillProjectCode"
+            value={autoFillProjectCode}
+            onChange={setAutoFillProjectCode}
+            label="Auto Fill Project Code"
+            inputType="text"
+          />
         )}
-        {/* <button type="button" onClick={saveOptions}> */}
         <button type="button" onClick={saveOptions}>
           Save
         </button>
