@@ -1,4 +1,3 @@
-const webpack = require("webpack");
 const path = require("path");
 const CopyPlugin = require("copy-webpack-plugin");
 const srcDir = path.join(__dirname, "..", "src");
@@ -6,8 +5,7 @@ const contentScriptDir = path.join(srcDir, "content-scripts");
 
 module.exports = {
   entry: {
-    popup: path.join(srcDir, "popup.tsx"),
-    options: path.join(srcDir, "options.tsx"),
+    settings: path.join(srcDir, "settings.tsx"),
     dtx: path.join(contentScriptDir, "dtx.ts"),
     "dtx-summary": path.join(contentScriptDir, "dtx-summary.ts"),
     "dtx-login": path.join(contentScriptDir, "dtx-login.ts"),

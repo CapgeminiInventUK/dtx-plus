@@ -1,5 +1,5 @@
 import printLine from "./modules/print";
-import LoadExtensionSettings from "./modules/settings";
+import { getSettings } from "./modules/settings";
 
 // Corrects summary table column widths on Chrome
 function fixColumnWidths() {
@@ -65,4 +65,4 @@ function LoadPolyfiller(settings: Record<string, any>) {
 }
 
 // Load settings from storage (with defaults) and run starter func
-LoadExtensionSettings((settings: Record<string, any>) => LoadPolyfiller(settings));
+getSettings((settings: Record<string, any>) => LoadPolyfiller(settings));

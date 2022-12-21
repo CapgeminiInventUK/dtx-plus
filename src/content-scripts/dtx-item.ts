@@ -5,7 +5,7 @@
 */
 
 import injectScript from "./modules/inject-script";
-import LoadExtensionSettings from "./modules/settings";
+import { getSettings } from "./modules/settings";
 
 // Global variables
 let checkboxChanged = false; // Flag to block context menu showing
@@ -378,4 +378,4 @@ async function ItemPageScripts(settings: Record<string, any>) {
 }
 
 // Load settings from storage and run login scripts
-LoadExtensionSettings((settings: Record<string, any>) => ItemPageScripts(settings));
+getSettings((settings: Record<string, any>) => ItemPageScripts(settings));
