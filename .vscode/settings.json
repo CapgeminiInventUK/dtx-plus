@@ -1,12 +1,26 @@
 {
-    "typescript.tsdk": "./node_modules/typescript/lib",
-    "files.eol": "\n",
-    "json.schemas": [
-        {
-            "fileMatch": [
-                "/manifest.json"
-            ],
-            "url": "http://json.schemastore.org/chrome-manifest"
-        }
-    ]
+  "typescript.tsdk": "./node_modules/typescript/lib",
+  "files.eol": "\n",
+  "json.schemas": [
+    {
+      "fileMatch": ["/manifest.json"],
+      "url": "http://json.schemastore.org/chrome-manifest"
+    }
+  ],
+
+  "cSpell.language": "en-GB",
+  "cSpell.words": ["polyfiller"],
+  "[javascript]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
 }

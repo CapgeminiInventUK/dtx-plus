@@ -1,0 +1,89 @@
+.patternfill-container {
+	position: relative;
+}
+
+.patternfill-menu {
+	padding: 0 5px;
+	width: 80px;
+	height: 50px;
+	z-index: 1000; /* Keep on top */
+	margin-top: 5px;
+
+	font-size: 13px;
+	font-family: 'Open Sans', sans-serif;
+	white-space: nowrap;
+	color: #464448;
+
+	overflow: hidden;
+	transition: 0.2s;
+	user-select: none;
+
+	position: absolute;
+}
+
+.patternfill-container.open .patternfill-menu {
+	background: white;
+	filter: drop-shadow(2px 4px 6px #0002);
+	border: 1px solid #ccc;
+	width: 225px;
+	height: 200px;
+	border-radius: 8px;
+}
+
+.patternfill-menu-button {
+	cursor: pointer;
+	z-index: 100;
+	margin-right: 6px;
+}
+
+.patternfill-container.open .patternfill-menu-button {
+	opacity: 0.7;
+}
+
+.patternfill-container.open .patternfill-menu .patternfill-menu-content {
+	opacity: 1;
+	visibility: visible;
+}
+
+.patternfill-menu-content {
+	opacity: 0;
+	visibility: hidden;
+	padding: 0 7px;
+	transition: 0.2s;
+}
+
+.patternfill-menu-content .patternFillDesc {
+	white-space: normal;
+	display: block;
+    margin-top: 11px;
+    margin-bottom: 14px;
+
+	color: #666;
+	font-style: italic;
+}
+
+.patternfill-menu-content label.patternFillNumLabel {
+	width: 62px;
+	display: inline-block;
+	margin-bottom: 5px;
+	font-weight: bold;
+}
+
+.cbLabel {
+	font-weight: normal;
+}
+
+.patternfill-menu-content input[type=number] {
+	width: 40px;
+}
+
+.patternfill-menu-content input[type=checkbox] {
+	vertical-align: middle;
+}
+
+.patternfill-menu #patternFillButton {
+	position: absolute;
+	bottom: 10px;
+	right: 5px;
+	padding: 2px 7px;
+}

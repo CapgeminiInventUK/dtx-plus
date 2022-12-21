@@ -1,0 +1,15 @@
+/* Styling to correct warning that DTX only supports IE */
+#tabHolder > tbody > tr:nth-child(3) > td {
+	text-decoration: line-through !important;
+}
+#tabHolder > tbody > tr:nth-child(3) > td:after {
+	content: "DTX Plus loaded \A Chrome is now supported, enjoy!";
+	white-space: pre; /* Add \A newline support */
+	
+	display: inline-block;
+	height: auto;
+	width: 100%;
+	
+	font-size: 22px;
+	color: #1a7;
+}
