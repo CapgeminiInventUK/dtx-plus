@@ -1,4 +1,5 @@
 import React from "react";
+import { InputLabel, MenuItem, Select } from "@mui/material";
 
 type DropDownOptionItemProps = {
   value: string;
@@ -16,16 +17,20 @@ type DropdownOptionProps = {
 function DropdownOption({ inputId, value, label, onChange, options }: DropdownOptionProps) {
   return (
     <div>
-      <label htmlFor={inputId}>
-        {label}
-        <select id={inputId} value={value} onChange={(e) => onChange(e.target.value)}>
-          {options.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ))}
-        </select>
-      </label>
+      <InputLabel htmlFor={`${inputId}-label`}>{label}</InputLabel>
+
+      <Select
+        labelId={`${inputId}-label`}
+        id={inputId}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+      >
+        {options.map((option) => (
+          <MenuItem key={option.value} value={option.value}>
+            {option.label}
+          </MenuItem>
+        ))}
+      </Select>
     </div>
   );
 }

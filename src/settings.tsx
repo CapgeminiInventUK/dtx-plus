@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
+import Button from "@mui/material/Button";
+
+import Grid2 from "@mui/material/Unstable_Grid2"; // Grid version 2
+
 import {
   assignSpecialToken,
   decryptString,
@@ -7,7 +11,7 @@ import {
   saveSettings,
   getSettings,
 } from "./content-scripts/modules/settings";
-import CheckboxOption from "./components/checkbox-option";
+import SwitchOption from "./components/switch-option";
 import InputOption from "./components/input-option";
 import DropdownOption from "./components/dropdown-option";
 
@@ -91,22 +95,28 @@ function Settings() {
   };
 
   return (
-    <>
-      <h1 style={{ marginTop: "0px", marginBottom: "8px" }}>Settings</h1>
-      <div>
-        <CheckboxOption
+    <Grid2 container direction="column" spacing={2}>
+      <Grid2>
+        <h1 style={{ marginTop: "0px", marginBottom: "8px" }}>Settings</h1>
+      </Grid2>
+      <Grid2>
+        <SwitchOption
           inputId="shortcutKeys"
           checked={shortcutKeys}
           onChange={setShortcutKeys}
-          label="Enable shortcut keys"
+          label="Shortcut keys"
         />
-        <CheckboxOption
+      </Grid2>
+      <Grid2>
+        <SwitchOption
           inputId="fixSummaryTable"
           checked={fixSummaryTable}
           onChange={setFixSummaryTable}
           label="Fix summary table"
         />
-        <CheckboxOption
+      </Grid2>
+      <Grid2>
+        <SwitchOption
           inputId="selectMode"
           checked={selectMode}
           onChange={setSelectMode}
@@ -121,7 +131,9 @@ function Settings() {
             inputType="number"
           />
         )}
-        <CheckboxOption
+      </Grid2>
+      <Grid2>
+        <SwitchOption
           inputId="showBankHolidays"
           checked={showBankHolidays}
           onChange={setShowBankHolidays}
@@ -140,7 +152,9 @@ function Settings() {
             ]}
           />
         )}
-        <CheckboxOption
+      </Grid2>
+      <Grid2>
+        <SwitchOption
           inputId="autoLogin"
           checked={autoLogin}
           onChange={setAutoLogin}
@@ -155,7 +169,9 @@ function Settings() {
             inputType="text"
           />
         )}
-        <CheckboxOption
+      </Grid2>
+      <Grid2>
+        <SwitchOption
           inputId="autoFillFields"
           checked={autoFillFields}
           onChange={setAutoFillFields}
@@ -179,17 +195,19 @@ function Settings() {
             inputType="text"
           />
         )}
-        <button type="button" onClick={saveOptions}>
+      </Grid2>
+      <Grid2>
+        <Button variant="outlined" onClick={saveOptions}>
           Save
-        </button>
+        </Button>
+      </Grid2>
 
-        {status && (
-          <div>
-            <div>{status}</div>
-          </div>
-        )}
-      </div>
-    </>
+      {status && (
+        <Grid2>
+          <div>{status}</div>
+        </Grid2>
+      )}
+    </Grid2>
   );
 }
 

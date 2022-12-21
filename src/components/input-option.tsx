@@ -1,4 +1,5 @@
 import React from "react";
+import { TextField } from "@mui/material";
 
 type InputType = "text" | "number";
 
@@ -12,19 +13,14 @@ type InputOptionProps = {
 
 function InputOption({ inputId, label, value, onChange, inputType }: InputOptionProps) {
   return (
-    <div>
-      <div>
-        <label htmlFor={inputId}>
-          {label}
-          <input
-            id={inputId}
-            type={inputType}
-            value={value}
-            onChange={(e) => onChange(e.target.value)}
-          />
-        </label>
-      </div>
-    </div>
+    <TextField
+      id={inputId}
+      label={label}
+      type={inputType}
+      value={value}
+      variant="outlined"
+      onChange={(e) => onChange(e.target.value)}
+    />
   );
 }
 
