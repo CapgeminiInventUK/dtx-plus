@@ -2,8 +2,20 @@ import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import Button from "@mui/material/Button";
 
-import Grid2 from "@mui/material/Unstable_Grid2"; // Grid version 2
+import Grid from "@mui/material/Unstable_Grid2"; // Grid version 2
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
 
+import {
+  Alert,
+  AppBar,
+  Box,
+  createTheme,
+  Snackbar,
+  ThemeProvider,
+  Toolbar,
+  Typography,
+} from "@mui/material";
 import {
   assignSpecialToken,
   decryptString,
@@ -14,6 +26,12 @@ import {
 import SwitchOption from "./components/switch-option";
 import InputOption from "./components/input-option";
 import DropdownOption from "./components/dropdown-option";
+
+const theme = createTheme({
+  spacing: 8,
+});
+
+const showStatusDurationMs = 6000;
 
 function Settings() {
   const [shortcutKeys, setShortcutKeys] = useState<boolean>(false);
@@ -86,7 +104,7 @@ function Settings() {
             setStatus("Settings saved.");
             const id = setTimeout(() => {
               setStatus("");
-            }, 5000);
+            }, showStatusDurationMs);
             return () => clearTimeout(id);
           },
         );
@@ -95,119 +113,156 @@ function Settings() {
   };
 
   return (
-    <Grid2 container direction="column" spacing={2}>
-      <Grid2>
-        <h1 style={{ marginTop: "0px", marginBottom: "8px" }}>Settings</h1>
-      </Grid2>
-      <Grid2>
-        <SwitchOption
-          inputId="shortcutKeys"
-          checked={shortcutKeys}
-          onChange={setShortcutKeys}
-          label="Shortcut keys"
-        />
-      </Grid2>
-      <Grid2>
-        <SwitchOption
-          inputId="fixSummaryTable"
-          checked={fixSummaryTable}
-          onChange={setFixSummaryTable}
-          label="Fix summary table"
-        />
-      </Grid2>
-      <Grid2>
-        <SwitchOption
-          inputId="selectMode"
-          checked={selectMode}
-          onChange={setSelectMode}
-          label="Select mode"
-        />
-        {selectMode && (
-          <InputOption
-            inputId="selectHours"
-            value={selectHours}
-            onChange={setSelectHours}
-            label="Select hours"
-            inputType="number"
-          />
-        )}
-      </Grid2>
-      <Grid2>
-        <SwitchOption
-          inputId="showBankHolidays"
-          checked={showBankHolidays}
-          onChange={setShowBankHolidays}
-          label="Show bank holidays"
-        />
-        {showBankHolidays && (
-          <DropdownOption
-            inputId="holidayRegion"
-            value={holidayRegion}
-            onChange={setHolidayRegion}
-            label="Holiday region"
-            options={[
-              { value: "england-and-wales", label: "England and Wales" },
-              { value: "scotland", label: "Scotland" },
-              { value: "northern-ireland", label: "Northern Ireland" },
-            ]}
-          />
-        )}
-      </Grid2>
-      <Grid2>
-        <SwitchOption
-          inputId="autoLogin"
-          checked={autoLogin}
-          onChange={setAutoLogin}
-          label="Auto login"
-        />
-        {autoLogin && (
-          <InputOption
-            inputId="employeeNumber"
-            value={employeeNumber}
-            onChange={setEmployeeNumber}
-            label="Employee Number"
-            inputType="text"
-          />
-        )}
-      </Grid2>
-      <Grid2>
-        <SwitchOption
-          inputId="autoFillFields"
-          checked={autoFillFields}
-          onChange={setAutoFillFields}
-          label="Auto fill fields"
-        />
-        {autoFillFields && (
-          <InputOption
-            inputId="autoFillTaskNumber"
-            value={autoFillTaskNumber}
-            onChange={setAutoFillTaskNumber}
-            label="Task Number"
-            inputType="text"
-          />
-        )}
-        {autoFillFields && (
-          <InputOption
-            inputId="autoFillProjectCode"
-            value={autoFillProjectCode}
-            onChange={setAutoFillProjectCode}
-            label="Auto Fill Project Code"
-            inputType="text"
-          />
-        )}
-      </Grid2>
-      <Grid2>
-        <Button variant="outlined" onClick={saveOptions}>
-          Save
-        </Button>
-      </Grid2>
+    <ThemeProvider theme={theme}>
+      <Grid container direction="column" spacing={0}>
+        <AppBar position="sticky">
+          <Toolbar>
+            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+              Settings
+            </Typography>
+            <Button color="inherit" onClick={saveOptions}>
+              Save
+            </Button>
+          </Toolbar>
+        </AppBar>
+        <Box sx={{ p: 1 }}>
+          <Grid container direction="column" spacing={2}>
+            <Grid>
+              <SwitchOption
+                inputId="shortcutKeys"
+                checked={shortcutKeys}
+                onChange={setShortcutKeys}
+                label="Shortcut keys"
+              />
+            </Grid>
+            <Grid>
+              <SwitchOption
+                inputId="fixSummaryTable"
+                checked={fixSummaryTable}
+                onChange={setFixSummaryTable}
+                label="Fix summary table"
+              />
+            </Grid>
+            <Grid>
+              <SwitchOption
+                inputId="selectMode"
+                checked={selectMode}
+                onChange={setSelectMode}
+                label="Select mode"
+              />
+            </Grid>
+            {selectMode && (
+              <Box sx={{ p: 1 }}>
+                <Card>
+                  <CardContent>
+                    <InputOption
+                      inputId="selectHours"
+                      value={selectHours}
+                      onChange={setSelectHours}
+                      label="Select hours"
+                      inputType="number"
+                    />
+                  </CardContent>
+                </Card>
+              </Box>
+            )}
 
-      {status && (
-        <Grid2>
-          <div>{status}</div>
-        </Grid2>
-      )}
-    </Grid2>
+            <Grid>
+              <SwitchOption
+                inputId="showBankHolidays"
+                checked={showBankHolidays}
+                onChange={setShowBankHolidays}
+                label="Show bank holidays"
+              />
+            </Grid>
+            {showBankHolidays && (
+              <Box sx={{ p: 1 }}>
+                <Card>
+                  <CardContent>
+                    <DropdownOption
+                      inputId="holidayRegion"
+                      value={holidayRegion}
+                      onChange={setHolidayRegion}
+                      label="Holiday region"
+                      options={[
+                        { value: "england-and-wales", label: "England and Wales" },
+                        { value: "scotland", label: "Scotland" },
+                        { value: "northern-ireland", label: "Northern Ireland" },
+                      ]}
+                    />
+                  </CardContent>
+                </Card>
+              </Box>
+            )}
+            <Grid>
+              <SwitchOption
+                inputId="autoLogin"
+                checked={autoLogin}
+                onChange={setAutoLogin}
+                label="Auto login"
+              />
+            </Grid>
+            {autoLogin && (
+              <Box sx={{ p: 1 }}>
+                <Card variant="outlined">
+                  <CardContent>
+                    <InputOption
+                      inputId="employeeNumber"
+                      value={employeeNumber}
+                      onChange={setEmployeeNumber}
+                      label="Employee Number"
+                      inputType="text"
+                    />
+                  </CardContent>
+                </Card>
+              </Box>
+            )}
+            <Grid>
+              <SwitchOption
+                inputId="autoFillFields"
+                checked={autoFillFields}
+                onChange={setAutoFillFields}
+                label="Auto fill fields"
+              />
+            </Grid>
+            {autoFillFields && (
+              <Box sx={{ p: 1 }}>
+                <Card>
+                  <CardContent>
+                    <Grid container direction="column" spacing={2}>
+                      <Grid>
+                        <InputOption
+                          inputId="autoFillTaskNumber"
+                          value={autoFillTaskNumber}
+                          onChange={setAutoFillTaskNumber}
+                          label="Task Number"
+                          inputType="text"
+                        />
+                      </Grid>
+                      <Grid>
+                        <InputOption
+                          inputId="autoFillProjectCode"
+                          value={autoFillProjectCode}
+                          onChange={setAutoFillProjectCode}
+                          label="Auto Fill Project Code"
+                          inputType="text"
+                        />
+                      </Grid>
+                    </Grid>
+                  </CardContent>
+                </Card>
+              </Box>
+            )}
+
+            <Snackbar open={status.length > 0} autoHideDuration={showStatusDurationMs}>
+              <Alert severity="success" sx={{ width: "100%" }}>
+                {status}
+              </Alert>
+            </Snackbar>
+          </Grid>
+        </Box>
+      </Grid>
+    </ThemeProvider>
   );
 }
 
