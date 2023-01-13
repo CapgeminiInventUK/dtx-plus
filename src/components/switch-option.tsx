@@ -1,12 +1,17 @@
 import React from "react";
-import { FormControlLabel, Switch } from "@mui/material";
+import { FormControlLabel } from "@mui/material";
+import Android12Switch from "./android-12-switch";
 
 function SwitchOption({ inputId, label, checked, onChange }: SwitchOptionProp) {
   return (
     <FormControlLabel
       label={label}
       control={
-        <Switch id={inputId} checked={checked} onChange={(e) => onChange(e.target.checked)} />
+        <Android12Switch
+          id={inputId}
+          checked={checked}
+          onChange={(e) => onChange(e.target.checked)}
+        />
       }
     />
   );
