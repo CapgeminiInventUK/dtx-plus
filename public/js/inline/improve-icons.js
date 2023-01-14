@@ -1,3 +1,6 @@
+// This is not being used as the Ajax running on the page changes icons on actions
+// and this is delayed so very hard to inject new icons as they change based on ajax
+
 const loadfunction = window.onload;
 window.onload = (event) => {
   // enter here the action you want to do once loaded

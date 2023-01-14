@@ -1,0 +1,5 @@
+body {
+    overflow-y: scroll; /* Show vertical scrollbar */
+    padding: 0;
+    margin: 0;
+}

@@ -4,7 +4,7 @@
 */
 
 import printLine from "./modules/print";
-import LoadExtensionSettings, { loadPrepEmployeeNumber } from "./modules/settings";
+import { getSettings, decryptString } from "./modules/settings";
 
 // Auto-fills and logins in if form is available on current page
 function autoLogin(employeeNumber: string) {
@@ -39,9 +39,9 @@ function LoginPageScripts(settings: Record<string, any>) {
 
   // Record that a login attempt will be ran
   chrome.storage.sync.set({ stopAutoLogin: true }, () => {
-    autoLogin(loadPrepEmployeeNumber(settings.specialToken, settings.employeeNumber));
+    autoLogin(decryptString(settings.specialToken, settings.employeeNumber));
   });
 }
 
 // Load settings from storage and run login scripts
-LoadExtensionSettings((settings: Record<string, any>) => LoginPageScripts(settings));
+getSettings((settings: Record<string, any>) => LoginPageScripts(settings));
