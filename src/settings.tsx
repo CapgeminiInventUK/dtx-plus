@@ -14,6 +14,7 @@ import {
   ThemeProvider,
   Toolbar,
   Typography,
+  Divider,
 } from "@mui/material";
 
 import {
@@ -137,7 +138,7 @@ function Settings() {
             </Button>
           </Toolbar>
         </AppBar>
-        <Box sx={{ p: 1 }}>
+        <Box sx={{ p: 1.5 }}>
           <Grid container direction="column" spacing={2}>
             <Grid>
               <SwitchOption
@@ -152,6 +153,7 @@ function Settings() {
                 <b>Ctrl + S</b> - Save timesheet <b>Esc</b> - Cancel timesheet
               </Typography>
             </Grid>
+            <Divider variant="middle" />
             <Grid>
               <SwitchOption
                 inputId="fixSummaryTable"
@@ -165,6 +167,7 @@ function Settings() {
                 Fix columns on the summary view to show correct column widths to match headers
               </Typography>
             </Grid>
+            <Divider variant="middle" />
             <Grid>
               <SwitchOption
                 inputId="selectMode"
@@ -180,7 +183,7 @@ function Settings() {
               </Typography>
             </Grid>
             {selectMode && (
-              <Box sx={{ p: 1 }}>
+              <Grid>
                 <InputOption
                   inputId="selectHours"
                   value={selectHours}
@@ -188,9 +191,9 @@ function Settings() {
                   label="Hours to input for day"
                   inputType="number"
                 />
-              </Box>
+              </Grid>
             )}
-
+            <Divider variant="middle" />
             <Grid>
               <SwitchOption
                 inputId="showBankHolidays"
@@ -205,7 +208,7 @@ function Settings() {
               </Typography>
             </Grid>
             {showBankHolidays && (
-              <Box sx={{ p: 1 }}>
+              <Grid>
                 <DropdownOption
                   inputId="holidayRegion"
                   value={holidayRegion}
@@ -217,8 +220,9 @@ function Settings() {
                     { value: "northern-ireland", label: "Northern Ireland" },
                   ]}
                 />
-              </Box>
+              </Grid>
             )}
+            <Divider variant="middle" />
             <Grid>
               <SwitchOption
                 inputId="autoLogin"
@@ -232,7 +236,7 @@ function Settings() {
                 </Typography>
               </Grid>
               {autoLogin && (
-                <Box sx={{ p: 1 }}>
+                <Grid>
                   <InputOption
                     inputId="employeeNumber"
                     value={employeeNumber}
@@ -240,8 +244,9 @@ function Settings() {
                     label="Employee Number"
                     inputType="text"
                   />
-                </Box>
+                </Grid>
               )}
+              <Divider variant="middle" />
               <Grid>
                 <SwitchOption
                   inputId="autoFillFields"
@@ -253,32 +258,32 @@ function Settings() {
               <Grid>
                 <Typography variant="caption" display="block" gutterBottom>
                   Autofill the project code and task number fields when you create new item on
-                  timesheet.
+                  timesheet. <br />
+                  <b>Note:</b> This is built in to DTX now, go to My Preferences and enter Project
+                  Number and Task Code for Time
                 </Typography>
               </Grid>
               {autoFillFields && (
-                <Box sx={{ p: 1 }}>
-                  <Grid container direction="column" spacing={2}>
-                    <Grid>
-                      <InputOption
-                        inputId="autoFillProjectCode"
-                        value={autoFillProjectCode}
-                        onChange={setAutoFillProjectCode}
-                        label="Project Code"
-                        inputType="text"
-                      />
-                    </Grid>
-                    <Grid>
-                      <InputOption
-                        inputId="autoFillTaskNumber"
-                        value={autoFillTaskNumber}
-                        onChange={setAutoFillTaskNumber}
-                        label="Task Number"
-                        inputType="text"
-                      />
-                    </Grid>
+                <Grid container direction="column" spacing={2}>
+                  <Grid>
+                    <InputOption
+                      inputId="autoFillProjectCode"
+                      value={autoFillProjectCode}
+                      onChange={setAutoFillProjectCode}
+                      label="Project Code"
+                      inputType="text"
+                    />
                   </Grid>
-                </Box>
+                  <Grid>
+                    <InputOption
+                      inputId="autoFillTaskNumber"
+                      value={autoFillTaskNumber}
+                      onChange={setAutoFillTaskNumber}
+                      label="Task Number"
+                      inputType="text"
+                    />
+                  </Grid>
+                </Grid>
               )}
 
               <Snackbar open={status.length > 0} autoHideDuration={showStatusDurationMs}>

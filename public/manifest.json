@@ -61,6 +61,11 @@
       "matches": ["*://*.capgemini.com/DTX.NET/SubmitClaims.aspx"],
       "run_at": "document_idle",
       "js": ["js/submit-claims/submit-claims-injector.js"]
+    },
+    {
+      "matches": ["*://*.capgemini.com/DTX.NET/MyPreferences.aspx"],
+      "run_at": "document_idle",
+      "js": ["js/my-preferences.js"]
     }
   ],
   "permissions": ["storage"],

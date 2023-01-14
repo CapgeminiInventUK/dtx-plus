@@ -4,6 +4,7 @@ import fixMissingButtons from "./modules/fixes";
 import injectStandardUKTimeButton from "./modules/menu";
 import printLine from "./modules/print";
 import { getSettings } from "./modules/settings";
+import injectShortcutKeys from "./modules/shorcuts";
 
 function LoadPolyfiller(userSettings: Record<string, any>) {
   fixMissingButtons();
@@ -16,9 +17,12 @@ function LoadPolyfiller(userSettings: Record<string, any>) {
     printLine("does not contain pageContainsMenuBar");
   }
 
-  // Check calender is on page before injecting calender features
+  // Check calendar is on page before injecting calendar features
   if (document.getElementById("calDates_tabCalendar") !== null) {
     printLine("calDates_tabCalendar found on page");
+
+    injectShortcutKeys();
+
     // Inject bank holiday features
     getBankHolidaysJSON(userSettings, (holidayRegions, holidayEvents) => {
       if (userSettings.showBankHolidays) {

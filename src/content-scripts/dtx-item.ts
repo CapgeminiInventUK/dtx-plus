@@ -6,6 +6,7 @@
 
 import injectScript from "./modules/inject-script";
 import { getSettings } from "./modules/settings";
+import printLine from "./modules/print";
 
 // Global variables
 let checkboxChanged = false; // Flag to block context menu showing
@@ -336,15 +337,17 @@ function injectAutoFillButton(selectHours: number) {
 function autoFillTaskNumber(taskNumber: string) {
   const taskInput = document.getElementById("txtTaskNumber") as HTMLInputElement;
   if (!!taskInput && taskInput.value === "") taskInput.value = taskNumber;
+  else printLine("Task number already filled");
 }
 // Attempts to fill project code with user's default if nothing is entered yet
 function autoFillProjectCode(projectCode: string) {
   const projectInput = document.getElementById("drpProjectCode_input") as HTMLInputElement;
-  if (!!projectInput && projectInput.value === "") projectInput.value = projectCode;
-
-  // Trigger DTX project code change handler
-  const leftArrow = 37; // Fire left arrow as it's harmless and won't change the field value
-  projectInput.dispatchEvent(new KeyboardEvent("keydown", { keyCode: leftArrow }));
+  if (!!projectInput && projectInput.value === "") {
+    projectInput.value = projectCode;
+    // Trigger DTX project code change handler
+    const leftArrow = 37; // Fire left arrow as it's harmless and won't change the field value
+    projectInput.dispatchEvent(new KeyboardEvent("keydown", { keyCode: leftArrow }));
+  } else printLine("Task number already filled");
 }
 
 // Characters like "&" are blocked from the "Task ID" field, despite being allowed in Win DTX
@@ -369,6 +372,9 @@ async function ItemPageScripts(settings: Record<string, any>) {
   bypassBlockedNonAlphanumericChars();
 
   if (settings.autoFillFields) {
+    printLine("Auto-filling fields");
+    printLine(`Task number: ${settings.autoFillTaskNumber}`);
+    printLine(`Project code: ${settings.autoFillProjectCode}`);
     autoFillTaskNumber(settings.autoFillTaskNumber);
     autoFillProjectCode(settings.autoFillProjectCode);
   }
