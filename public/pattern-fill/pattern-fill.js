@@ -6,6 +6,7 @@ function injectScript(scriptStr) {
   script.remove();
 }
 
+injectScript("/pattern-fill/inline/is-descendant.js");
 injectScript("/pattern-fill/inline/run-pattern-fill.js");
 injectScript("/pattern-fill/inline/toggle-pattern-fill-menu.js");
 
@@ -60,7 +61,7 @@ function runPatternFill() {
 
       // If it was a whole number, removing the decimal would make it 0
       // Turn zeros back to 1 (100% of block)
-      if (dayAsFractionOfBlock == 0) dayAsFractionOfBlock = 1;
+      if (dayAsFractionOfBlock === 0) dayAsFractionOfBlock = 1;
 
       // Find (fraction expressed as decimal) what proportion of a block is days on
       let daysOnFraction = daysOn / daysInBlock;
@@ -78,7 +79,7 @@ function runPatternFill() {
     }
 
     // Auto-complete inputs
-    if (input.type == "checkbox") {
+    if (input.type === "checkbox") {
       input.checked = shouldSelect;
       input.classList.remove("semiChecked");
     } else {
