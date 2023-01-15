@@ -25,55 +25,116 @@
   },
   "content_scripts": [
     {
-      "matches": ["*://*.capgemini.com/DTX.NET/*"],
+      "matches": [
+        "*://*.capgemini.com/DTX.NET/*"
+      ],
       "run_at": "document_start",
-      "css": ["css/dtx-fixes.css", "css/dtx-additions.css"],
-      "js": ["js/vendor.js"]
+      "css": [
+        "css/dtx-fixes.css",
+        "css/dtx-additions.css"
+      ],
+      "js": [
+        "js/vendor.js"
+      ]
     },
     {
-      "matches": ["*://*.capgemini.com/DTX.NET/*"],
+      "matches": [
+        "*://*.capgemini.com/DTX.NET/*"
+      ],
       "run_at": "document_end",
-      "js": ["js/dtx.js"]
+      "js": [
+        "js/dtx.js"
+      ]
     },
     {
-      "matches": ["*://*.capgemini.com/DTX.NET/Summary.aspx"],
-      "run_at": "document_idle",
-      "js": ["js/dtx-summary.js"]
+      "matches": [
+        "*://*.capgemini.com/DTX.NET/*"
+      ],
+      "run_at": "document_end",
+      "js": [
+        "js/global.js"
+      ]
     },
     {
-      "matches": ["*://*.capgemini.com/DTX.NET/Login.aspx*"],
+      "matches": [
+        "*://*.capgemini.com/DTX.NET/Summary.aspx"
+      ],
       "run_at": "document_idle",
-      "css": ["css/login-message.css"],
-      "js": ["js/dtx-login.js"]
+      "js": [
+        "js/dtx-summary.js"
+      ]
     },
     {
-      "matches": ["*://*.capgemini.com/DTX.NET/item.aspx*"],
+      "matches": [
+        "*://*.capgemini.com/DTX.NET/Login.aspx*"
+      ],
       "run_at": "document_idle",
-      "css": ["pattern-fill/pattern-fill.css"],
-      "js": ["js/dtx-item.js", "pattern-fill/pattern-fill.js"]
+      "css": [
+        "css/login-message.css"
+      ],
+      "js": [
+        "js/dtx-login.js"
+      ]
     },
     {
-      "matches": ["*://*.capgemini.com/DTX.NET/PeriodOverView.aspx"],
+      "matches": [
+        "*://*.capgemini.com/DTX.NET/item.aspx*"
+      ],
       "run_at": "document_idle",
-      "js": ["js/dtx-period-overview.js"]
+      "css": [
+        "pattern-fill/pattern-fill.css"
+      ],
+      "js": [
+        "js/dtx-item.js",
+        "pattern-fill/pattern-fill.js"
+      ]
     },
     {
-      "matches": ["*://*.capgemini.com/DTX.NET/SubmitClaims.aspx"],
+      "matches": [
+        "*://*.capgemini.com/DTX.NET/PeriodOverView.aspx"
+      ],
       "run_at": "document_idle",
-      "js": ["js/submit-claims/submit-claims-injector.js"]
+      "js": [
+        "js/dtx-period-overview.js"
+      ]
     },
     {
-      "matches": ["*://*.capgemini.com/DTX.NET/MyPreferences.aspx"],
+      "matches": [
+        "*://*.capgemini.com/DTX.NET/SubmitClaims.aspx"
+      ],
       "run_at": "document_idle",
-      "js": ["js/my-preferences.js"]
+      "js": [
+        "js/submit-claims/submit-claims-injector.js"
+      ]
+    },
+    {
+      "matches": [
+        "*://*.capgemini.com/DTX.NET/MyPreferences.aspx"
+      ],
+      "run_at": "document_idle",
+      "js": [
+        "js/my-preferences.js"
+      ]
     }
   ],
-  "permissions": ["storage"],
-  "host_permissions": ["*://*.capgemini.com/DTX.NET/*"],
+  "permissions": [
+    "storage"
+  ],
+  "host_permissions": [
+    "*://*.capgemini.com/DTX.NET/*"
+  ],
   "web_accessible_resources": [
     {
-      "resources": ["/images/*", "/pattern-fill/*", "/js/inline/*", "/js/submit-claims/*"],
-      "matches": ["<all_urls>"]
+      "resources": [
+        "/icon-16.png",
+        "/images/*",
+        "/pattern-fill/*",
+        "/js/inline/*",
+        "/js/submit-claims/*"
+      ],
+      "matches": [
+        "<all_urls>"
+      ]
     }
   ]
 }

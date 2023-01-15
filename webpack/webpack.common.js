@@ -12,6 +12,7 @@ module.exports = {
     "dtx-item": path.join(contentScriptDir, "dtx-item.ts"),
     "dtx-period-overview": path.join(contentScriptDir, "dtx-period-overview.ts"),
     "my-preferences": path.join(contentScriptDir, "my-preferences.ts"),
+    global: path.join(contentScriptDir, "global.ts"),
   },
   output: {
     path: path.join(__dirname, "../dist/js"),
