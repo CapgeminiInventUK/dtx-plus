@@ -1,0 +1,22 @@
+name: lint
+
+on:
+  push:
+    branches-ignore:
+      - main
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📚 Git Checkout
+        uses: actions/checkout@v3
+      - name: 🚧 Node Setup
+        uses: actions/setup-node@v3
+        with:
+          cache: 'npm'
+          node-version-file: '.nvmrc'
+      - name: 🏗 Install dependencies
+        run: npm install --omit=production
+      - name: 🔍 Run lint
+        run: ./node_modules/.bin/eslint .

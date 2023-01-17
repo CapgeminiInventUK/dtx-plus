@@ -1,7 +1,33 @@
 const path = require("path");
 const CopyPlugin = require("copy-webpack-plugin");
+const BrowserExtensionPlugin = require("extension-build-webpack-plugin");
 const srcDir = path.join(__dirname, "..", "src");
 const contentScriptDir = path.join(srcDir, "content-scripts");
+
+function getPlugins() {
+  console.log();
+  let plugins;
+  plugins = [
+    new CopyPlugin({
+      patterns: [{ from: ".", to: "../", context: "public" }],
+      options: {},
+    }),
+  ];
+
+  if (process.env.NODE_ENV === "production") {
+    console.log("Adding BrowserExtensionPlugin");
+    plugins.push(
+      new BrowserExtensionPlugin({
+        devMode: false,
+        name: "prod.zip",
+        directory: "dist",
+        updateType: "minor",
+      }),
+    );
+  }
+
+  return plugins;
+}
 
 module.exports = {
   entry: {
@@ -38,10 +64,5 @@ module.exports = {
   resolve: {
     extensions: [".ts", ".tsx", ".js"],
   },
-  plugins: [
-    new CopyPlugin({
-      patterns: [{ from: ".", to: "../", context: "public" }],
-      options: {},
-    }),
-  ],
+  plugins: getPlugins(),
 };
