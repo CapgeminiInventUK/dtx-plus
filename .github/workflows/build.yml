@@ -2,7 +2,7 @@ name: build and test
 
 on:
   push:
-    branches: [ main ]
+#    branches: [ main ]
   pull_request:
     branches: [ main ]
 
@@ -10,13 +10,23 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - name: 📚 Git Checkout
-      uses: actions/checkout@v3
-    - name: 🚧 Node Setup
-      uses: actions/setup-node@v3
-      with:
-        cache: 'npm'
-        node-version-file: '.nvmrc'
-    - run: npm ci
-    - run: npm run build
-    - run: npm test
+      - name: 📚 Git Checkout
+        uses: actions/checkout@v3
+      - name: 🚧 Node Setup
+        uses: actions/setup-node@v3
+        with:
+          cache: 'npm'
+          node-version-file: '.nvmrc'
+      - run: npm ci
+      - run: npm run build
+      - run: npm test
+      - run: npm run zip
+      - name: "Upload & release"
+        uses: mnao305/chrome-extension-upload@v4.0.1
+        with:
+          file-path: prod.zip
+          extension-id: eacgncpmooemcegbgjfikjjnojbjfojj
+          client-id: ${{ secrets.CLIENT_ID }}
+          client-secret: ${{ secrets.CLIENT_SECRET }}
+          refresh-token: ${{ secrets.REFRESH_TOKEN }}
+          publish: false
