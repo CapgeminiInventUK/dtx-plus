@@ -1,6 +1,7 @@
 {
   "name": "dtx-plus",
-  "version": "0.0.1-rc",
+  "//": "Version used by Chrome is in public/manifest. This version is updated by the build pipeline. Do not update manually.",
+  "version": "1.0.0",
   "description": "DTX Plus",
   "main": "index.js",
   "scripts": {
@@ -11,13 +12,13 @@
     "lint": "eslint --ext .js,.jsx,.ts,.tsx src",
     "style": "prettier --write \"src/**/*.{ts,tsx}\"",
     "prepare": "husky install",
-    "zip": "NODE_ENV=production webpack --config webpack/webpack.prod.js"
+    "package": "NODE_ENV=production webpack --config webpack/webpack.prod.js"
   },
   "author": "",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/chibat/chrome-extension-typescript-starter.git"
+    "url": "https://github.com/CapgeminiInventUK/dtx-plus.git"
   },
   "dependencies": {
     "@emotion/react": "11.10.5",
@@ -36,7 +37,9 @@
     "@types/react-dom": "18.0.10",
     "@typescript-eslint/eslint-plugin": "5.48.2",
     "@typescript-eslint/parser": "5.48.2",
+    "archiver": "5.3.1",
     "copy-webpack-plugin": "11.0.0",
+    "dotenv": "16.0.3",
     "eslint": "8.32.0",
     "eslint-config-airbnb": "19.0.4",
     "eslint-config-airbnb-typescript": "17.0.0",
@@ -48,6 +51,7 @@
     "glob": "8.1.0",
     "husky": "8.0.3",
     "jest": "29.3.1",
+    "json-bump": "1.0.2",
     "lint-staged": "13.1.0",
     "prettier": "2.8.3",
     "rimraf": "4.1.1",

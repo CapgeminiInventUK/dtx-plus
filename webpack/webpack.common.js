@@ -1,30 +1,24 @@
 const path = require("path");
 const CopyPlugin = require("copy-webpack-plugin");
-const BrowserExtensionPlugin = require("extension-build-webpack-plugin");
+const ZipPluginForChrome = require("./plugins/zip-plugin-for-chrome");
 const srcDir = path.join(__dirname, "..", "src");
 const contentScriptDir = path.join(srcDir, "content-scripts");
+const { version } = require("../public/manifest.json");
 
 function getPlugins() {
-  console.log();
   let plugins;
   plugins = [
     new CopyPlugin({
       patterns: [{ from: ".", to: "../", context: "public" }],
       options: {},
     }),
+    new ZipPluginForChrome({
+      buildZipOverride: false, // Only build zip file when NODE_ENV is production unless set to true
+      name: "prod.zip",
+      directory: "dist",
+      version,
+    }),
   ];
-
-  if (process.env.NODE_ENV === "production") {
-    console.log("Adding BrowserExtensionPlugin");
-    plugins.push(
-      new BrowserExtensionPlugin({
-        devMode: false,
-        name: "prod.zip",
-        directory: "dist",
-        updateType: "minor",
-      }),
-    );
-  }
 
   return plugins;
 }

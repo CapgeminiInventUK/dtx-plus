@@ -1,4 +1,4 @@
-name: lint
+name: Lint
 
 on:
   push:
@@ -16,7 +16,16 @@ jobs:
         with:
           cache: 'npm'
           node-version-file: '.nvmrc'
+
       - name: 🏗 Install dependencies
-        run: npm install --omit=production
+        run: npm ci
+
       - name: 🔍 Run lint
-        run: ./node_modules/.bin/eslint .
+        run: npm run lint
+
+      - name: Build
+        run: npm run build
+
+      - name: Test
+        run: npm test
+
