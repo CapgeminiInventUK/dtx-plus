@@ -1,52 +1,34 @@
 # DTX Plus
 
-> :construction: **Under construction** :construction:
->
-> This is not ready for usage
+[<img src="https://storage.googleapis.com/web-dev-uploads/image/WlD8wC6g8khYWPJUsQceQkhXSlv1/mPGKYBIR2uCP0ApchDXE.png">](https://chrome.google.com/webstore/detail/dtx-plus/eacgncpmooemcegbgjfikjjnojbjfojj)
 
-Uses Chrome Extension TypeScript Starter
+This plugin provides polyfils for a variety of functions in the DTX tool. Features include:
 
-![build](https://github.com/chibat/chrome-extension-typescript-starter/workflows/build/badge.svg)
-
-Chrome Extension, TypeScript and Visual Studio Code
-
-## Prerequisites
-
-* [node + npm](https://nodejs.org/) (Current Version)
-
-## Option
-
-* [Visual Studio Code](https://code.visualstudio.com/)
-
-## Includes the following
-
-* TypeScript
-* Webpack
-* React
-* Jest
-* Example Code
-  * Chrome Storage
-  * Settings Version 2
-  * content script
-  * count up badge number
-  * background
-
-## Project Structure
-
-* src/typescript: TypeScript source files
-* src/assets: static files
-* dist: Chrome Extension directory
-* dist/js: Generated JavaScript files
+- Fix Chrome compatiblity for submitting claims
+- Fixed input field bugs
+- Graphical fixes
+- Work days select mode (auto-fills 7.5 hrs)
+- Show bank holidays
+- Auto-login
+- Workdays select mode major improvements and fixes
+- Workdays select mode click-drag selection
+- Auto-fill month: Work days, all and clear
+- Auto-fill task number & project code
+- Shortcut keys (CTRL+S: save, ESC: home)
+- Menubar shortcut button to add "Standard Time in UK"
+- Graphical improvements and fixes
 
 ## Setup
 
+### Prerequisites
+
+* [nvm](https://github.com/nvm-sh/nvm)
+
+### Install
+
 ```shell
-npm install
+nvm install && npm install
 ```
-
-## Import as Visual Studio Code project
-
-...
 
 ## Build
 
@@ -56,22 +38,24 @@ npm run build
 
 ## Build in watch mode
 
-### terminal
-
 ```shell
 npm run watch
 ```
 
-### Visual Studio Code
-
-Run watch mode.
-
-type `Ctrl + Shift + B`
-
 ## Load extension to chrome
 
-Load `dist` directory
+- Go to the Extensions page by entering chrome://extensions in a new tab
+- Enable Developer Mode by clicking the toggle switch next to Developer mode.
+- Click the **Load Unpacked** button and select the `dist` directory
 
 ## Test
 
-`npx jest` or `npm run test`
+```shell
+npm run test
+``` 
+
+## Create .zip file
+
+```shell
+npm run package
+```
