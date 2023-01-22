@@ -45,6 +45,9 @@ jobs:
       - name: Lint the extension
         run: npm run lint
 
+      - name: Build the extension
+        run: npm run build
+
       - name: Test the extension
         run: npm run test
 
