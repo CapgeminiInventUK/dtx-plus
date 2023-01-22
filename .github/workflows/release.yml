@@ -9,6 +9,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Change default branch to main
+        run: git config --global init.defaultBranch main
+
       - name: Checkout code
         uses: actions/checkout@v2
 
@@ -61,17 +64,19 @@ jobs:
           refresh-token: ${{ secrets.REFRESH_TOKEN }}
           publish: false
 
-      - name: Append -SNAPSHOT to package.json version
-        run: npx json -I -f package.json -e "this.version+='-SNAPSHOT'"
+      - name: Bump the minor version and append -SNAPSHOT to package.json version
+        run: |
+          npx json -I -f package.json -e "this.version = this.version.split('.').map((x,i) => i === 1 ? (x*1)+1 : x).join('.') + '-SNAPSHOT'"
 
       - name: Update public/manifest.json version for release
-        run: npx json -I -f public/manifest.json -e "this.version+='-SNAPSHOT'"
+        run: |
+          npx json -I -f public/manifest.json -e "this.version = this.version.split('.').map((x,i) => i === 1 ? (x*1)+1 : x).join('.') + '-SNAPSHOT'"
 
       - name: Update package-lock.json with new package.json version
         run: npm i
 
       - name: Commit changes
-        run: git config --global user.email "github-actions[bot]@users.noreply.github.com" && git config --global user.name "GitHub Actions" && git commit -am "Update package.json version to ${{ steps.get_tag.outputs.tag }}-SNAPSHOT"
+        run: git config --global user.email "github-actions[bot]@users.noreply.github.com" && git config --global user.name "GitHub Actions" && git add . && git commit --no-verify -m "Released ${{ steps.get_tag.outputs.tag }}. Bump to next minor version and snapshot"
 
       - name: Push changes
         run: git push origin main
