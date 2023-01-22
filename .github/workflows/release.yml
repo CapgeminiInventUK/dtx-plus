@@ -75,14 +75,6 @@ jobs:
       - name: Update package-lock.json with new package.json version
         run: npm i
 
-      - name: Authenticate with GitHub
-        run: echo ${{ secrets.PAT_COMMIT }} | tr -d '\n' > ~/.git-credentials
-        env:
-          GITHUB_TOKEN: ${{ secrets.PAT_COMMIT }}
-
-      - name: Configure git to use the GitHub token
-        run: git config --global credential.helper 'store --file ~/.git-credentials'
-
       - name: Commit changes
         run: git branch -a && git switch -c main && git config --global user.email "github-actions[bot]@users.noreply.github.com" && git config --global user.name "GitHub Actions" && git add . && git commit --no-verify -m "Released ${{ steps.get_tag.outputs.tag }}"
 
