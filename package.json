@@ -1,7 +1,7 @@
 {
   "name": "dtx-plus",
   "//": "Version used by Chrome is in public/manifest. This version is updated by the build pipeline. Do not update manually.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "DTX Plus",
   "main": "index.js",
   "scripts": {

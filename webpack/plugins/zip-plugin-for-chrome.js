@@ -58,7 +58,7 @@ class ZipPluginForChrome {
     archive.pipe(output);
 
     archive.directory(`${dirName}/`, false);
-    console.log(`${output}.zip file created in root directory`);
+    console.log(`${outputFileName}.zip file created in root directory`);
     archive.finalize();
   }
 
