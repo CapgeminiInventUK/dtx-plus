@@ -1,0 +1,78 @@
+name: Tagged Release and Publish
+
+on:
+  push:
+    tags:
+      - "*"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Node Setup
+        uses: actions/setup-node@v3
+        with:
+          cache: 'npm'
+          node-version-file: '.nvmrc'
+
+      - name: Get the tag name
+        run: echo "::set-output name=tag::$(echo $GITHUB_REF | cut -d '/' -f 3)"
+        id: get_tag
+
+      - name: Validate the tag is in semantic version format
+        run: |
+          tag=${{ steps.get_tag.outputs.tag }}
+          if ! [[ $tag =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "The tag $tag is not in semantic version format"
+            exit 1
+          fi
+
+      - name: Update package.json version for release
+        run: npx json -I -f package.json -e "this.version='${{ steps.get_tag.outputs.tag }}'"
+
+      - name: Update public/manifest.json version for release
+        run: npx json -I -f public/manifest.json -e "this.version='${{ steps.get_tag.outputs.tag }}'"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint the extension
+        run: npm run lint
+
+      - name: Build the extension
+        run: npm run build
+
+      - name: Test the extension
+        run: npm run test
+
+      - name: Package the extension
+        run: npm run package
+
+      - name: Release on chrome store
+        uses: mnao305/chrome-extension-upload@v4.0.1
+        with:
+          file-path: prod.zip
+          extension-id: eacgncpmooemcegbgjfikjjnojbjfojj
+          client-id: ${{ secrets.CLIENT_ID }}
+          client-secret: ${{ secrets.CLIENT_SECRET }}
+          refresh-token: ${{ secrets.REFRESH_TOKEN }}
+          publish: false
+
+      - name: Append -SNAPSHOT to package.json version
+        run: npx json -I -f package.json -e "this.version+='-SNAPSHOT'"
+
+      - name: Update public/manifest.json version for release
+        run: npx json -I -f public/manifest.json -e "this.version+='-SNAPSHOT'"
+
+      - name: Update package-lock.json with new package.json version
+        run: npm i
+
+      - name: Commit changes
+        run: git config --global user.email "github-actions[bot]@users.noreply.github.com" && git config --global user.name "GitHub Actions" && git commit -am "Update package.json version to ${{ steps.get_tag.outputs.tag }}-SNAPSHOT"
+
+      - name: Push changes
+        run: git push origin main
+
