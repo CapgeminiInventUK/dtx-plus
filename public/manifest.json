@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "DTX Plus",
   "description": "DTX Plus",
-  "version": "1.0",
+  "version": "1.0.0",
   "options_ui": {
     "page": "options.html"
   },

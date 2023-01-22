@@ -1,7 +1,27 @@
 const path = require("path");
 const CopyPlugin = require("copy-webpack-plugin");
+const ZipPluginForChrome = require("./plugins/zip-plugin-for-chrome");
 const srcDir = path.join(__dirname, "..", "src");
 const contentScriptDir = path.join(srcDir, "content-scripts");
+const { version } = require("../public/manifest.json");
+
+function getPlugins() {
+  let plugins;
+  plugins = [
+    new CopyPlugin({
+      patterns: [{ from: ".", to: "../", context: "public" }],
+      options: {},
+    }),
+    new ZipPluginForChrome({
+      buildZipOverride: false, // Only build zip file when NODE_ENV is production unless set to true
+      name: "prod.zip",
+      directory: "dist",
+      version,
+    }),
+  ];
+
+  return plugins;
+}
 
 module.exports = {
   entry: {
@@ -38,10 +58,5 @@ module.exports = {
   resolve: {
     extensions: [".ts", ".tsx", ".js"],
   },
-  plugins: [
-    new CopyPlugin({
-      patterns: [{ from: ".", to: "../", context: "public" }],
-      options: {},
-    }),
-  ],
+  plugins: getPlugins(),
 };
