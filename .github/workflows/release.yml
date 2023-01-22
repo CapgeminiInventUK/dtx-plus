@@ -45,9 +45,6 @@ jobs:
       - name: Lint the extension
         run: npm run lint
 
-      - name: Build the extension
-        run: npm run build
-
       - name: Test the extension
         run: npm run test
 
@@ -76,7 +73,7 @@ jobs:
         run: npm i
 
       - name: Commit changes
-        run: git branch -a && git switch -c main && git config --global user.email "github-actions[bot]@users.noreply.github.com" && git config --global user.name "GitHub Actions" && git add . && git commit --no-verify -m "Released ${{ steps.get_tag.outputs.tag }}. Bump to next minor version and snapshot"
+        run: git branch -a && git switch -c main && git config --global user.email "github-actions[bot]@users.noreply.github.com" && git config --global user.name "GitHub Actions" && git add . && git commit --no-verify -m "Released ${{ steps.get_tag.outputs.tag }}"
 
       - name: Push changes
         run: git push origin main
