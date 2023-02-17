@@ -39,6 +39,9 @@ jobs:
       - name: Update public/manifest.json version for release
         run: npx json -I -f public/manifest.json -e "this.version='${{ steps.get_tag.outputs.tag }}'"
 
+      - name: Update public/manifest.json version_name for release
+        run: npx json -I -f public/manifest.json -e "this.version_name='${{ steps.get_tag.outputs.tag }}'"
+
       - name: Install dependencies
         run: npm ci
 
@@ -70,7 +73,11 @@ jobs:
 
       - name: Update public/manifest.json version for release
         run: |
-          npx json -I -f public/manifest.json -e "this.version = this.version.split('.').map((x,i) => i === 1 ? (x*1)+1 : x).join('.') + '-SNAPSHOT'"
+          npx json -I -f public/manifest.json -e "this.version = this.version.split('.').map((x,i) => i === 1 ? (x*1)+1 : x).join('.')"
+
+      - name: Update public/manifest.json version_name for release
+        run: |
+          npx json -I -f public/manifest.json -e "this.version_name = this.version_name.split('.').map((x,i) => i === 1 ? (x*1)+1 : x).join('.') + '-SNAPSHOT'"
 
       - name: Update package-lock.json with new package.json version
         run: npm i
