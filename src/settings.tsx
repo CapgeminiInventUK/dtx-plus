@@ -246,15 +246,15 @@ function Settings() {
                   />
                 </Grid>
               )}
-              <Divider variant="middle" />
-              <Grid>
-                <SwitchOption
-                  inputId="autoFillFields"
-                  checked={autoFillFields}
-                  onChange={setAutoFillFields}
-                  label="Auto fill fields"
-                />
-              </Grid>
+            </Grid>
+            <Divider variant="middle" />
+            <Grid>
+              <SwitchOption
+                inputId="autoFillFields"
+                checked={autoFillFields}
+                onChange={setAutoFillFields}
+                label="Auto fill fields"
+              />
               <Grid>
                 <Typography variant="caption" display="block" gutterBottom>
                   Autofill the project code and task number fields when you create new item on
@@ -262,36 +262,36 @@ function Settings() {
                   <b>Note:</b> This is built in to DTX now, go to My Preferences and enter Project
                   Number and Task Code for Time
                 </Typography>
+                {autoFillFields && (
+                  <Grid container direction="column" spacing={2}>
+                    <Grid>
+                      <InputOption
+                        inputId="autoFillProjectCode"
+                        value={autoFillProjectCode}
+                        onChange={setAutoFillProjectCode}
+                        label="Project Code"
+                        inputType="text"
+                      />
+                    </Grid>
+                    <Grid>
+                      <InputOption
+                        inputId="autoFillTaskNumber"
+                        value={autoFillTaskNumber}
+                        onChange={setAutoFillTaskNumber}
+                        label="Task Number"
+                        inputType="text"
+                      />
+                    </Grid>
+                  </Grid>
+                )}
               </Grid>
-              {autoFillFields && (
-                <Grid container direction="column" spacing={2}>
-                  <Grid>
-                    <InputOption
-                      inputId="autoFillProjectCode"
-                      value={autoFillProjectCode}
-                      onChange={setAutoFillProjectCode}
-                      label="Project Code"
-                      inputType="text"
-                    />
-                  </Grid>
-                  <Grid>
-                    <InputOption
-                      inputId="autoFillTaskNumber"
-                      value={autoFillTaskNumber}
-                      onChange={setAutoFillTaskNumber}
-                      label="Task Number"
-                      inputType="text"
-                    />
-                  </Grid>
-                </Grid>
-              )}
-
-              <Snackbar open={status.length > 0} autoHideDuration={showStatusDurationMs}>
-                <Alert severity="success" sx={{ width: "100%" }}>
-                  {status}
-                </Alert>
-              </Snackbar>
             </Grid>
+
+            <Snackbar open={status.length > 0} autoHideDuration={showStatusDurationMs}>
+              <Alert severity="success" sx={{ width: "100%" }}>
+                {status}
+              </Alert>
+            </Snackbar>
           </Grid>
         </Box>
       </Grid>
