@@ -54,7 +54,7 @@
     "husky": "8.0.3",
     "jest": "29.5.0",
     "json-bump": "1.0.2",
-    "lint-staged": "13.1.2",
+    "lint-staged": "13.2.0",
     "prettier": "2.8.4",
     "rimraf": "4.3.1",
     "ts-jest": "29.0.5",
